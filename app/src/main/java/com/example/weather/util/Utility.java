@@ -7,6 +7,8 @@ import android.text.TextUtils;
 import com.example.weather.db.City;
 import com.example.weather.db.County;
 import com.example.weather.db.Province;
+import com.example.weather.gson.Weather;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,7 +19,7 @@ public class Utility {
         if(!TextUtils.isEmpty(response)){
             try {
                 JSONArray allProvinces=new JSONArray(response);
-                for(int i=0;i<allProvinces.length();i++){
+                for(int i=0; i<allProvinces.length(); i++){
                     JSONObject provinceObject=allProvinces.getJSONObject(i);
                     Province province=new Province();
                     province.setProvinceName(provinceObject.getString("name"));
@@ -69,5 +71,15 @@ public class Utility {
         }
         return false;
     }
-
+   public static Weather handleWeatherResponse(String response){
+        try {
+            JSONObject jsonObject=new JSONObject(response);
+            JSONArray jsonArray= jsonObject.getJSONArray("HeWeather");
+            String weatherContent=jsonArray.getJSONObject(0).toString();
+            return new Gson().fromJson(weatherContent,Weather.class);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+   }
 }

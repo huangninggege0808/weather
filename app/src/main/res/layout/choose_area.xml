@@ -17,13 +17,14 @@
         android:layout_centerInParent="true"
         android:id="@+id/title_text"/>
     <Button
-        android:background="@drawable/ic_launcher_background"
+        android:background="#ffd700"
         android:layout_height="25dp"
         android:layout_width="25dp"
         android:id="@+id/back_button"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="10dp"/>
+        android:layout_marginLeft="10dp"
+        />
 </RelativeLayout>
     <ListView
         android:layout_height="match_parent"
