@@ -4,6 +4,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -22,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.example.weather.gson.Basic;
 import com.example.weather.gson.Forecast;
 import com.example.weather.gson.Weather;
+import com.example.weather.service.AutoUpdateService;
 import com.example.weather.util.HttpUtil;
 import com.example.weather.util.Utility;
 
@@ -161,8 +163,8 @@ public class WeatherActivity extends AppCompatActivity {
                 TextView minText = view.findViewById(R.id.min_text);
                 dateText.setText(forecast.date);
                 infoText.setText(forecast.more.info);
-                maxText.setText(forecast.temperature.max);
-                minText.setText(forecast.temperature.min);
+                maxText.setText(forecast.temperature.max+"°C");
+                minText.setText(forecast.temperature.min+"°C");
                 forecastLayout.addView(view);
             }
             if (weather.aqi != null) {
@@ -176,6 +178,8 @@ public class WeatherActivity extends AppCompatActivity {
             carWashText.setText(carWash);
             sportText.setText(sport);
             weatherLayout.setVisibility(View.VISIBLE);//数据已经加载完成了,变为可见
+            Intent intent=new Intent(this, AutoUpdateService.class);
+            startService(intent);
         }
         private void loadBingPic(){
             String requestBingPic = "http://guolin.tech/api/bing_pic";
